@@ -1,35 +1,42 @@
+import Image from "next/image";
 import { Business } from "@/lib/mockBusiness";
+import { strings, t } from "@/lib/strings";
 
 export function BusinessCard({ business }: { business: Business }) {
-  const { name, address, email, phone, logoInitial } = business;
+  const { name, address, email, phone } = business;
+  const copy = strings.businessCard;
   return (
-    <aside className="rounded-[var(--radius-card)] border border-border bg-card p-6 shadow-[var(--shadow-card)] md:p-7">
-      <div className="flex flex-col items-center gap-2 border-b border-border pb-5">
-        <div
-          aria-hidden
-          className="grid h-12 w-12 place-items-center rounded-full bg-gradient-to-br from-accent to-[#b97b1d] font-display text-lg font-semibold text-white"
-        >
-          {logoInitial}
+    <aside className="flex w-full flex-col items-stretch gap-6 rounded-[12px] border border-border bg-card p-4">
+      <div className="flex flex-col items-center gap-4">
+        <div className="relative h-20 w-20 overflow-hidden rounded-full border border-page bg-card">
+          <Image
+            src="/figma/gold-spa.png"
+            alt={t(copy.logoAlt, { business: name })}
+            fill
+            sizes="80px"
+            className="object-cover"
+            priority
+          />
         </div>
-        <p className="text-[11px] font-medium uppercase tracking-[0.18em] text-accent">
+        <p className="text-[18px] font-bold leading-[22px] tracking-[0.18px] text-ink">
           {name}
         </p>
-        <h2 className="font-display text-2xl font-semibold text-ink">{name}</h2>
       </div>
-      <dl className="mt-5 space-y-4 text-sm">
-        <Row label="Address">
-          <span>{address.line1}</span>
+
+      <dl className="flex flex-col gap-2 text-[16px] leading-[24px]">
+        <Row label={copy.addressLabel}>
+          <span className="block">{address.line1}</span>
           {address.line2 && <span className="block">{address.line2}</span>}
           <span className="block">
             {address.city}, {address.state} {address.zip}
           </span>
         </Row>
-        <Row label="Email">
+        <Row label={copy.emailLabel}>
           <a href={`mailto:${email}`} className="text-brand hover:underline">
             {email}
           </a>
         </Row>
-        <Row label="Phone">
+        <Row label={copy.phoneLabel}>
           <a href={`tel:${phone.replace(/\s/g, "")}`} className="text-brand hover:underline">
             {phone}
           </a>
@@ -41,9 +48,9 @@ export function BusinessCard({ business }: { business: Business }) {
 
 function Row({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-[72px_1fr] gap-3">
-      <dt className="text-ink-muted">{label}</dt>
-      <dd className="text-ink">{children}</dd>
+    <div className="flex items-start gap-4">
+      <dt className="w-[85px] shrink-0 text-muted">{label}</dt>
+      <dd className="flex-1 text-ink">{children}</dd>
     </div>
   );
 }

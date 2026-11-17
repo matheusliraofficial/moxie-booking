@@ -5,82 +5,91 @@ import { goldSpa } from "@/lib/mockBusiness";
 import type { BookingData, ContactValues, PaymentValues } from "@/lib/schemas";
 import { maskCardNumber } from "@/lib/format";
 import { BusinessCard } from "./BusinessCard";
-import { Stepper } from "./Stepper";
 import { ContactStep } from "./ContactStep";
 import { PaymentStep } from "./PaymentStep";
 import { ConfirmationStep } from "./ConfirmationStep";
+import { Button } from "@/components/ui/Button";
+import { strings, t } from "@/lib/strings";
 
 type StepKey = "contact" | "payment" | "confirmation";
 
-const STEPS = [
-  { id: "contact", label: "Contact" },
-  { id: "payment", label: "Payment" },
-  { id: "confirmation", label: "Confirmation" },
-];
+const CONTACT_FORM_ID = "contact-form";
+const PAYMENT_FORM_ID = "payment-form";
 
 export function BookingFlow() {
   const [step, setStep] = useState<StepKey>("contact");
   const [booking, setBooking] = useState<BookingData>({ contact: null, payment: null });
 
-  const currentIdx = step === "contact" ? 0 : step === "payment" ? 1 : 2;
-
   function handleContact(values: ContactValues) {
     setBooking((b) => ({ ...b, contact: values }));
     setStep("payment");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
   function handlePayment(values: PaymentValues) {
     const finalBooking: BookingData = { contact: booking.contact, payment: values };
     setBooking(finalBooking);
-    // Required by spec: log the booking payload instead of posting it.
-    // The logged card number is masked so we don't write the PAN to devtools history.
     console.log("Booking submitted", {
       business: goldSpa,
       contact: finalBooking.contact,
-      payment: values ? { ...values, cardNumber: maskCardNumber(values.cardNumber) } : null,
+      payment: { ...values, cardNumber: maskCardNumber(values.cardNumber) },
       submittedAt: new Date().toISOString(),
     });
     setStep("confirmation");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function handleReset() {
-    setBooking({ contact: null, payment: null });
-    setStep("contact");
+  if (step === "confirmation") {
+    return (
+      <div className="min-h-screen bg-page">
+        <h1 className="sr-only">{t(strings.meta.pageHeading, { business: goldSpa.name })}</h1>
+        <div className="mx-auto flex max-w-[1440px] justify-center px-6 py-10 md:px-[120px] md:py-[60px]">
+          <ConfirmationStep business={goldSpa} />
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-4 py-8 md:py-14">
-      <header className="mb-6 flex flex-col gap-4 md:mb-10 md:flex-row md:items-end md:justify-between">
-        <div>
-          <p className="font-display text-2xl font-semibold tracking-tight text-brand">Moxie</p>
-          <h1 className="mt-1 font-display text-3xl font-semibold tracking-tight text-ink md:text-[2.2rem]">
-            Book your appointment
-          </h1>
+    <div className="min-h-screen bg-page pb-[112px]">
+      <h1 className="sr-only">{t(strings.meta.pageHeading, { business: goldSpa.name })}</h1>
+      <div className="mx-auto flex max-w-[1440px] flex-col gap-6 px-4 py-10 md:flex-row md:items-start md:gap-6 md:px-[120px] md:py-[60px]">
+        <div className="md:w-[450px] md:shrink-0">
+          <BusinessCard business={goldSpa} />
         </div>
-        <Stepper steps={STEPS} current={currentIdx} />
-      </header>
-
-      <div className="grid gap-6 md:grid-cols-[minmax(0,320px)_1fr] md:gap-8">
-        <BusinessCard business={goldSpa} />
         <section
           aria-live="polite"
-          className="rounded-[var(--radius-card)] border border-border bg-card p-6 shadow-[var(--shadow-card)] md:p-8"
+          className="flex-1 rounded-[12px] border border-border bg-card px-6 py-8 md:min-h-[525px] md:px-[60px] md:py-12"
         >
           {step === "contact" && (
-            <ContactStep defaultValues={booking.contact ?? {}} onSubmit={handleContact} />
+            <ContactStep
+              formId={CONTACT_FORM_ID}
+              defaultValues={booking.contact ?? {}}
+              onSubmit={handleContact}
+            />
           )}
           {step === "payment" && (
             <PaymentStep
+              formId={PAYMENT_FORM_ID}
               defaultValues={booking.payment ?? {}}
               onSubmit={handlePayment}
-              onBack={() => setStep("contact")}
             />
-          )}
-          {step === "confirmation" && (
-            <ConfirmationStep business={goldSpa} booking={booking} onReset={handleReset} />
           )}
         </section>
       </div>
+
+      {step === "contact" && (
+        <div
+          className="fixed inset-x-0 bottom-0 z-10 bg-card"
+          style={{ boxShadow: "var(--shadow-bar)" }}
+        >
+          <div className="mx-auto flex max-w-[1440px] justify-end px-4 py-4 md:px-[120px]">
+            <Button type="submit" form={CONTACT_FORM_ID} size="lg">
+              {strings.contact.continue}
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

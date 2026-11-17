@@ -1,57 +1,49 @@
 "use client";
 
-import { forwardRef, InputHTMLAttributes, ReactNode } from "react";
+import { forwardRef, InputHTMLAttributes } from "react";
 import clsx from "clsx";
 
-type Props = InputHTMLAttributes<HTMLInputElement> & {
-  label: string;
+type Props = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
+  label?: string;
   error?: string;
-  hint?: string;
-  trailing?: ReactNode;
+  size?: "md" | "sm";
 };
 
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(
-  { label, error, hint, trailing, id, className, ...rest },
+  { label, error, size = "md", id, className, ...rest },
   ref,
 ) {
   const inputId = id ?? rest.name;
-  const describedBy = error ? `${inputId}-error` : hint ? `${inputId}-hint` : undefined;
 
   return (
-    <div className="flex flex-col gap-1.5">
-      <label htmlFor={inputId} className="text-sm font-medium text-ink">
-        {label}
-      </label>
-      <div className="relative">
-        <input
-          id={inputId}
-          ref={ref}
-          aria-invalid={!!error || undefined}
-          aria-describedby={describedBy}
-          className={clsx(
-            "w-full rounded-xl border bg-card px-4 py-3 text-[15px] text-ink placeholder:text-ink-muted/80",
-            "transition outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand",
-            error ? "border-danger/70" : "border-border",
-            trailing && "pr-11",
-            className,
-          )}
-          {...rest}
-        />
-        {trailing && (
-          <span className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-ink-muted">
-            {trailing}
-          </span>
+    <div className="flex w-full flex-col gap-[2px]">
+      {label && (
+        <label
+          htmlFor={inputId}
+          className="text-[14px] font-semibold leading-[22px] text-label"
+        >
+          {label}
+        </label>
+      )}
+      <input
+        id={inputId}
+        ref={ref}
+        aria-invalid={!!error || undefined}
+        aria-describedby={error ? `${inputId}-error` : undefined}
+        className={clsx(
+          "w-full rounded-[12px] border-[1.5px] bg-card px-3 text-[16px] leading-[24px] text-ink placeholder:text-muted",
+          "outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20",
+          size === "md" ? "py-3" : "py-[11px]",
+          error ? "border-danger" : "border-input-border",
+          className,
         )}
-      </div>
-      {error ? (
-        <p id={`${inputId}-error`} className="text-xs text-danger">
+        {...rest}
+      />
+      {error && (
+        <p id={`${inputId}-error`} className="mt-0.5 text-[13px] leading-[18px] text-danger">
           {error}
         </p>
-      ) : hint ? (
-        <p id={`${inputId}-hint`} className="text-xs text-ink-muted">
-          {hint}
-        </p>
-      ) : null}
+      )}
     </div>
   );
 });

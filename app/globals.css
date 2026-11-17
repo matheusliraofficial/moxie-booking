@@ -1,28 +1,32 @@
 @import "tailwindcss";
 
 @theme {
-  --color-page: #f3f4f6;
-  --color-card: #ffffff;
-  --color-ink: #141217;
-  --color-ink-soft: #4b4553;
-  --color-ink-muted: #8b8594;
-  --color-border: #e7e5ea;
-  --color-brand: #6b1fb8;
-  --color-brand-strong: #4e1486;
-  --color-brand-soft: #f3eafc;
-  --color-accent: #e3a93b;
+  /* Figma tokens — Moxie / Gold Spa booking flow */
+  --color-page: #f4f4f6;        /* Grey/Grey 20 */
+  --color-card: #ffffff;         /* Grey/White */
+  --color-border: #e3e3e8;       /* Grey/Grey 30 */
+  --color-input-border: #aeaeb7; /* Grey/Grey 50 */
+  --color-checkbox-border: #c8c8d0; /* Grey/Grey 40 */
+
+  --color-ink: #131316;          /* Text/Dark */
+  --color-title: #0a0e15;        /* title */
+  --color-label: #60606c;        /* Text/Description */
+  --color-muted: #6a6a76;        /* Text/Additional — tightened from Figma's #888896 to meet WCAG AA (4.6:1) */
+
+  --color-brand: #8a1d96;        /* Violet/90 */
+  --color-success-bg: #d1faec;   /* Success green/20 */
+  --color-success-mid: #33cc99;  /* Success green/60 */
+  --color-success-ink: #124937;  /* Success green/100 */
   --color-danger: #c03030;
 
-  --font-display: var(--font-fraunces);
-  --font-sans: var(--font-geist);
+  --font-sans: var(--font-nunito);
 
-  --radius-card: 20px;
-  --shadow-card: 0 1px 2px rgba(20, 18, 23, 0.04), 0 8px 24px -16px rgba(20, 18, 23, 0.12);
+  --radius-card: 12px;
+  --radius-button: 16px;
+  --shadow-bar: 0 4px 15px rgba(56, 19, 60, 0.25);
 }
 
-:root {
-  color-scheme: light;
-}
+:root { color-scheme: light; }
 
 html, body {
   background: var(--color-page);
@@ -31,10 +35,3 @@ html, body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
-
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
-input[type="number"] { -moz-appearance: textfield; }
