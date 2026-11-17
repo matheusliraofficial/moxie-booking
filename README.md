@@ -3,8 +3,8 @@
 A simplified version of Moxie's public booking flow, built as a frontend take-home.
 Three steps, one business (Gold Spa, mocked), full client-side validation, no backend.
 
-- **Live URL:** _added after deploy below_
-- **Repo:** _this repository_
+- **Live URL:** https://moxie-booking.pages.dev
+- **Repo:** https://github.com/matheusliraofficial/moxie-booking
 
 ## Stack
 
@@ -12,7 +12,7 @@ Three steps, one business (Gold Spa, mocked), full client-side validation, no ba
 - Tailwind CSS v4
 - `react-hook-form` + `zod` for form state + typed validation schemas
 - `lucide-react` for icons
-- Deployed on Vercel
+- Deployed on Cloudflare Pages (static export via `next build` + `output: "export"`)
 
 ## Setup
 
