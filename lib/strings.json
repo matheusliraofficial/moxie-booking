@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "title": "Book an appointment · Gold Spa",
+    "description": "Reserve your visit in a few quick steps.",
+    "pageHeading": "Book your appointment at {business}"
+  },
+  "businessCard": {
+    "addressLabel": "Address",
+    "emailLabel": "Email",
+    "phoneLabel": "Phone",
+    "logoAlt": "{business} logo"
+  },
+  "contact": {
+    "heading": "Enter your details below",
+    "fields": {
+      "fullName": "Full Name",
+      "email": "Email",
+      "phone": "Phone",
+      "visitReason": "Visit reason"
+    },
+    "placeholder": "Input text",
+    "continue": "Continue"
+  },
+  "payment": {
+    "heading": "Secure your appointment by card",
+    "description": "A credit or debit card is required to book your appointment.",
+    "fields": {
+      "cardInformation": "Card information",
+      "cardNumberPlaceholder": "1234 1234 1234 1234",
+      "expiryPlaceholder": "MM / YY",
+      "expiryAria": "Expiration",
+      "cvcPlaceholder": "CVV",
+      "cvcAria": "Card security code",
+      "zipPlaceholder": "Billing zip code",
+      "zipAria": "Billing zip code"
+    },
+    "cancellationPolicy": "We ask that you please reschedule or cancel at least 24 hours before the beginning of your appointment or you may be charged a cancellation fee of $50. In the event of emergency, contact us directly. Your card will be held in case of late cancellation and for future purchases. It will not be charged now.",
+    "submit": "Book appointment",
+    "disclaimer": "By creating this appointment, you acknowledge you will receive automated transactional messages from this merchant."
+  },
+  "confirmation": {
+    "heading": "Your appointment has been booked!",
+    "subheading": "A confirmation has been sent to your email address.",
+    "successIconAlt": ""
+  },
+  "errors": {
+    "fullNameTooShort": "Please enter your full name",
+    "fullNameTooLong": "That's a bit long",
+    "emailInvalid": "Enter a valid email address",
+    "phoneInvalid": "Enter a valid phone number",
+    "visitReasonTooShort": "Tell us a little about your visit",
+    "visitReasonTooLong": "Keep it under 500 characters",
+    "cardNumberInvalid": "Enter a valid card number",
+    "cardNumberFailsLuhn": "Card number is invalid",
+    "expiryFormat": "Use MM/YY",
+    "expiryExpired": "Card is expired",
+    "cvcFormat": "3 or 4 digits",
+    "zipRequired": "Enter your billing ZIP",
+    "cancellationAckRequired": "Please acknowledge the cancellation policy"
+  }
+}

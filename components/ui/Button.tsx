@@ -5,22 +5,25 @@ import clsx from "clsx";
 
 type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "ghost";
+  size?: "md" | "lg";
+  fullWidth?: boolean;
 };
 
 export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
-  { variant = "primary", className, children, ...rest },
+  { variant = "primary", size = "md", fullWidth, className, children, ...rest },
   ref,
 ) {
   return (
     <button
       ref={ref}
       className={clsx(
-        "inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-medium transition",
+        "inline-flex cursor-pointer items-center justify-center gap-2 rounded-[16px] font-semibold tracking-[0.32px] transition",
         "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-page",
         "disabled:cursor-not-allowed disabled:opacity-60",
-        variant === "primary" &&
-          "bg-brand text-white shadow-[0_6px_18px_-8px_rgba(107,31,184,0.6)] hover:bg-brand-strong",
-        variant === "ghost" && "text-ink-soft hover:text-ink",
+        size === "lg" ? "px-9 py-4 text-[16px] leading-[24px]" : "px-9 py-4 text-[16px] leading-[24px]",
+        variant === "primary" && "bg-brand text-white hover:bg-[#7a1884] active:bg-[#6a1674]",
+        variant === "ghost" && "text-label hover:text-ink",
+        fullWidth && "w-full",
         className,
       )}
       {...rest}

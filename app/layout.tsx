@@ -1,28 +1,23 @@
 import type { Metadata } from "next";
-import { Fraunces, Geist } from "next/font/google";
+import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
+import { strings } from "@/lib/strings";
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const nunito = Nunito_Sans({
+  variable: "--font-nunito",
   subsets: ["latin"],
-  axes: ["opsz"],
-  display: "swap",
-});
-
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
+  weight: ["400", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Book an appointment · Moxie",
-  description: "Reserve your visit in a few quick steps.",
+  title: strings.meta.title,
+  description: strings.meta.description,
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${geist.variable} h-full antialiased`}>
+    <html lang="en" className={`${nunito.variable} h-full antialiased`}>
       <body className="min-h-full">{children}</body>
     </html>
   );
