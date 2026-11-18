@@ -15,6 +15,11 @@ export const contactSchema = z.object({
   visitReason: z.string().trim().min(3, e.visitReasonTooShort).max(500, e.visitReasonTooLong),
 });
 
+/**
+ * Validated output of {@link contactSchema}. Produced by the Contact step
+ * once the user submits a valid form, then stored on the parent
+ * `<BookingFlow>` so the data survives navigation back to step 1.
+ */
 export type ContactValues = z.infer<typeof contactSchema>;
 
 export const paymentSchema = z.object({
@@ -40,9 +45,20 @@ export const paymentSchema = z.object({
   cancellationAck: z.literal(true, { message: e.cancellationAckRequired }),
 });
 
+/**
+ * Validated output of {@link paymentSchema}. The card number here is still
+ * the raw PAN — the parent masks it before logging to the console.
+ */
 export type PaymentValues = z.infer<typeof paymentSchema>;
 
+/**
+ * Snapshot of everything the user has entered so far. Either field is
+ * `null` until its step completes.
+ */
 export type BookingData = {
+  /** Contact details from step 1, or `null` before the step is submitted. */
   contact: ContactValues | null;
+
+  /** Payment details from step 2, or `null` before the step is submitted. */
   payment: PaymentValues | null;
 };
