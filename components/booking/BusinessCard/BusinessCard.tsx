@@ -4,8 +4,8 @@ import type { BusinessCardProps } from "./BusinessCard.types";
 
 const Row = ({ label, children }: { label: string; children: React.ReactNode }) => (
   <div className="flex items-start gap-4">
-    <dt className="w-[85px] shrink-0 text-muted">{label}</dt>
-    <dd className="flex-1 text-ink">{children}</dd>
+    <dt className="text-muted w-[85px] shrink-0">{label}</dt>
+    <dd className="text-ink flex-1">{children}</dd>
   </div>
 );
 
@@ -13,9 +13,9 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
   const { name, address, email, phone } = business;
   const copy = strings.businessCard;
   return (
-    <aside className="flex w-full flex-col items-stretch gap-6 rounded-[12px] border border-border bg-card p-4">
+    <aside className="border-border bg-card flex w-full flex-col items-stretch gap-6 rounded-[12px] border p-4">
       <div className="flex flex-col items-center gap-4">
-        <div className="relative h-20 w-20 overflow-hidden rounded-full border border-page bg-card">
+        <div className="border-page bg-card relative h-20 w-20 overflow-hidden rounded-full border">
           <Image
             src="/figma/gold-spa.png"
             alt={t(copy.logoAlt, { business: name })}
@@ -25,9 +25,7 @@ export const BusinessCard = ({ business }: BusinessCardProps) => {
             priority
           />
         </div>
-        <p className="text-[18px] font-bold leading-[22px] tracking-[0.18px] text-ink">
-          {name}
-        </p>
+        <p className="text-ink text-[18px] leading-[22px] font-bold tracking-[0.18px]">{name}</p>
       </div>
 
       <dl className="flex flex-col gap-2 text-[16px] leading-[24px]">

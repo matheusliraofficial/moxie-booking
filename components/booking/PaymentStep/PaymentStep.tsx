@@ -28,18 +28,13 @@ export const PaymentStep = ({ formId, defaultValues, onSubmit }: PaymentStepProp
   const f = copy.fields;
 
   return (
-    <form
-      id={formId}
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-9"
-      noValidate
-    >
+    <form id={formId} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-9" noValidate>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
-          <h2 className="text-[18px] font-bold leading-[24px] tracking-[0.18px] text-title">
+          <h2 className="text-title text-[18px] leading-[24px] font-bold tracking-[0.18px]">
             {copy.heading}
           </h2>
-          <p className="text-[14px] leading-[24px] text-label">{copy.description}</p>
+          <p className="text-label text-[14px] leading-[24px]">{copy.description}</p>
         </div>
 
         <div className="flex flex-col gap-2">
@@ -100,25 +95,29 @@ export const PaymentStep = ({ formId, defaultValues, onSubmit }: PaymentStepProp
             id="cancellationAck"
             checked={!!ack}
             onChange={(e) =>
-              setValue("cancellationAck", e.target.checked ? true : (undefined as unknown as true), {
-                shouldValidate: true,
-              })
+              setValue(
+                "cancellationAck",
+                e.target.checked ? true : (undefined as unknown as true),
+                {
+                  shouldValidate: true,
+                },
+              )
             }
           >
             {copy.cancellationPolicy}
           </Checkbox>
           {errors.cancellationAck && (
-            <p className="pl-10 text-[13px] text-danger">{errors.cancellationAck.message}</p>
+            <p className="text-danger pl-10 text-[13px]">{errors.cancellationAck.message}</p>
           )}
         </div>
       </div>
 
       <div className="flex flex-col gap-6">
-        <div className="h-[1.5px] w-full bg-border" aria-hidden />
+        <div className="bg-border h-[1.5px] w-full" aria-hidden />
         <Button type="submit" fullWidth size="lg" disabled={isSubmitting}>
           {copy.submit}
         </Button>
-        <p className="text-[14px] leading-[24px] text-label">{copy.disclaimer}</p>
+        <p className="text-label text-[14px] leading-[24px]">{copy.disclaimer}</p>
       </div>
     </form>
   );

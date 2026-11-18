@@ -8,10 +8,7 @@ test("mobile viewport stacks the two cards vertically", async ({ page, viewport 
   const businessCard = page.getByText("Gold Spa").first();
   const formCard = page.getByRole("heading", { name: /enter your details below/i });
 
-  const [b, f] = await Promise.all([
-    businessCard.boundingBox(),
-    formCard.boundingBox(),
-  ]);
+  const [b, f] = await Promise.all([businessCard.boundingBox(), formCard.boundingBox()]);
   expect(b, "business card box").not.toBeNull();
   expect(f, "form box").not.toBeNull();
   // Form sits below the business card on mobile.
@@ -25,10 +22,7 @@ test("desktop viewport places the two cards side-by-side", async ({ page, viewpo
   const businessCard = page.getByText("Gold Spa").first();
   const formCard = page.getByRole("heading", { name: /enter your details below/i });
 
-  const [b, f] = await Promise.all([
-    businessCard.boundingBox(),
-    formCard.boundingBox(),
-  ]);
+  const [b, f] = await Promise.all([businessCard.boundingBox(), formCard.boundingBox()]);
   expect(b, "business card box").not.toBeNull();
   expect(f, "form box").not.toBeNull();
   // Side-by-side: y positions overlap, form starts to the right of the business card.

@@ -5,14 +5,7 @@ import { ContactStep } from "./ContactStep";
 
 function renderStep(overrides: Partial<Parameters<typeof ContactStep>[0]> = {}) {
   const onSubmit = vi.fn();
-  render(
-    <ContactStep
-      formId="contact"
-      defaultValues={{}}
-      onSubmit={onSubmit}
-      {...overrides}
-    />,
-  );
+  render(<ContactStep formId="contact" defaultValues={{}} onSubmit={onSubmit} {...overrides} />);
   return { onSubmit };
 }
 

@@ -12,7 +12,7 @@ const meta: Meta<typeof PaymentStep> = {
   },
   decorators: [
     (Story) => (
-      <div className="w-[600px] rounded-[12px] border border-border bg-card p-8">
+      <div className="border-border bg-card w-[600px] rounded-[12px] border p-8">
         <Story />
       </div>
     ),

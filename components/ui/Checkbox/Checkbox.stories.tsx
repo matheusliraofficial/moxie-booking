@@ -1,6 +1,23 @@
 import { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { Checkbox } from "./Checkbox";
+import type { CheckboxProps } from "./Checkbox.types";
+
+const InteractiveCheckbox = (args: CheckboxProps) => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <Checkbox
+      {...args}
+      id="interactive"
+      name="interactive"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    >
+      We ask that you please reschedule or cancel at least 24 hours before the beginning of your
+      appointment or you may be charged a cancellation fee of $50.
+    </Checkbox>
+  );
+};
 
 const meta: Meta<typeof Checkbox> = {
   component: Checkbox,
@@ -23,23 +40,15 @@ export const Unchecked: Story = {
 };
 
 export const Checked: Story = {
-  args: { id: "b", name: "b", checked: true, children: "I agree to the cancellation policy", onChange: () => {} },
+  args: {
+    id: "b",
+    name: "b",
+    checked: true,
+    children: "I agree to the cancellation policy",
+    onChange: () => {},
+  },
 };
 
 export const Interactive: Story = {
-  render: (args) => {
-    const [checked, setChecked] = useState(false);
-    return (
-      <Checkbox
-        {...args}
-        id="interactive"
-        name="interactive"
-        checked={checked}
-        onChange={(e) => setChecked(e.target.checked)}
-      >
-        We ask that you please reschedule or cancel at least 24 hours before the beginning of your
-        appointment or you may be charged a cancellation fee of $50.
-      </Checkbox>
-    );
-  },
+  render: (args) => <InteractiveCheckbox {...args} />,
 };
