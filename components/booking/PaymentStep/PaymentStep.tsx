@@ -31,7 +31,7 @@ export const PaymentStep = ({ formId, defaultValues, onSubmit }: PaymentStepProp
     formState: { errors, isSubmitting, submitCount },
   } = useForm<PaymentValues>({
     resolver: zodResolver(paymentSchema),
-    defaultValues: { cancellationAck: undefined, ...defaultValues },
+    defaultValues: { cancellationAck: false, ...defaultValues },
     mode: "onBlur",
   });
 
@@ -129,13 +129,7 @@ export const PaymentStep = ({ formId, defaultValues, onSubmit }: PaymentStepProp
             id="cancellationAck"
             checked={!!ack}
             onChange={(e) =>
-              setValue(
-                "cancellationAck",
-                e.target.checked ? true : (undefined as unknown as true),
-                {
-                  shouldValidate: true,
-                },
-              )
+              setValue("cancellationAck", e.target.checked, { shouldValidate: true })
             }
           >
             {copy.cancellationPolicy}

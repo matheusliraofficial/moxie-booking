@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { PaymentStep } from "./PaymentStep";
@@ -17,6 +17,11 @@ const fillValid = async () => {
   await user.type(screen.getByPlaceholderText("Billing zip code"), "92108");
 };
 
+const submitForm = async () =>
+  act(async () => {
+    (document.getElementById("pay") as HTMLFormElement).requestSubmit();
+  });
+
 describe("PaymentStep", () => {
   it("renders the secure-card heading and inputs", () => {
     renderStep();
@@ -32,7 +37,7 @@ describe("PaymentStep", () => {
   it("blocks submit without the cancellation ack checkbox", async () => {
     const { onSubmit } = renderStep();
     await fillValid();
-    (document.getElementById("pay") as HTMLFormElement).requestSubmit();
+    await submitForm();
     const matches = await screen.findAllByText(/acknowledge the cancellation policy/i);
     expect(matches.length).toBeGreaterThanOrEqual(1);
     expect(onSubmit).not.toHaveBeenCalled();
@@ -46,8 +51,9 @@ describe("PaymentStep", () => {
     await user.type(screen.getByPlaceholderText("CVV"), "123");
     await user.type(screen.getByPlaceholderText("Billing zip code"), "92108");
     await user.click(screen.getByLabelText(/please reschedule or cancel/i));
-    (document.getElementById("pay") as HTMLFormElement).requestSubmit();
-    expect(await screen.findByText(/card number is invalid/i)).toBeInTheDocument();
+    await submitForm();
+    const errs = await screen.findAllByText(/card number is invalid/i);
+    expect(errs.length).toBeGreaterThanOrEqual(1);
     expect(onSubmit).not.toHaveBeenCalled();
   });
 
@@ -56,7 +62,7 @@ describe("PaymentStep", () => {
     const { onSubmit } = renderStep();
     await fillValid();
     await user.click(screen.getByLabelText(/please reschedule or cancel/i));
-    (document.getElementById("pay") as HTMLFormElement).requestSubmit();
+    await submitForm();
     await vi.waitFor(() => expect(onSubmit).toHaveBeenCalled());
     expect(onSubmit.mock.calls[0][0]).toMatchObject({
       expiry: "12/30",

@@ -10,7 +10,9 @@ test.describe("Contact validation", () => {
     await expect(page.locator("#fullName-error")).toHaveText(/please enter your full name/i);
     await expect(page.locator("#email-error")).toHaveText(/valid email address/i);
     await expect(page.locator("#phone-error")).toHaveText(/valid phone number/i);
-    await expect(page.locator("#visitReason-error")).toHaveText(/tell us a little about your visit/i);
+    await expect(page.locator("#visitReason-error")).toHaveText(
+      /tell us a little about your visit/i,
+    );
     // still on step 1
     await expect(page.getByRole("heading", { name: /enter your details below/i })).toBeVisible();
   });

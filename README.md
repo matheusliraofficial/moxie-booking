@@ -19,8 +19,12 @@ Three steps, one business (Gold Spa, mocked), full client-side validation, no ba
 ```bash
 pnpm install
 pnpm dev            # http://localhost:3000
-pnpm build          # production build
-pnpm lint
+pnpm build          # production build (static export → out/)
+pnpm lint           # ESLint (Next + Prettier rules)
+pnpm format         # Prettier
+pnpm test           # Vitest + React Testing Library (44 unit tests)
+pnpm e2e            # Playwright: happy path, validation, axe, keyboard, responsive
+pnpm storybook      # Storybook on :6006
 ```
 
 Node 20+ recommended.
@@ -108,9 +112,18 @@ Breakpoints are Tailwind's defaults (`md` = 768px, `lg` = 1024px).
 - **Tailwind v4 theme tokens over a design-system package.** Keeps the project
   single-file and reviewable in 4–6 hours; a real build would factor the color
   / radius / shadow tokens into a shared package.
-- **No tests shipped.** I opted for a working, polished UI over a smoke test
-  suite within the time budget. The zod schemas are the natural unit-test
-  surface if I had another hour.
+- **Tests cover the contract, not the markup.** 44 Vitest unit tests cover
+  each component's behaviour (label associations, error states, keyboard
+  toggles) plus the `lib/format` + `lib/schemas` pure functions. 26
+  Playwright specs walk the full flow end-to-end, run axe-core across all
+  three screens (strict WCAG AA + a deep WCAG 2.1 + best-practice sweep),
+  verify keyboard-only submission, and assert the responsive layout on
+  both desktop and a Pixel 7 viewport. I didn't add snapshot tests — DOM
+  output changes every time the designer touches a token and the
+  maintenance cost isn't worth it on a project this small.
+- **Stories for every component.** Storybook 9 with a story file next to
+  each component. Serves as a living style guide and a fast sandbox for
+  design review.
 
 ## Scope decisions (what I left out)
 

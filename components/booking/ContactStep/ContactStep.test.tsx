@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { ContactStep } from "./ContactStep";
@@ -9,12 +9,10 @@ function renderStep(overrides: Partial<Parameters<typeof ContactStep>[0]> = {}) 
   return { onSubmit };
 }
 
-async function submit() {
-  await userEvent.click(
-    (await screen.findByRole("button", { name: /submit/i, hidden: true }).catch(() => null)) ??
-      document.querySelector('button[type="submit"]')!,
-  );
-}
+const submitForm = async (id: string) =>
+  act(async () => {
+    (document.getElementById(id) as HTMLFormElement).requestSubmit();
+  });
 
 describe("ContactStep", () => {
   it("shows the heading and all required fields", () => {
@@ -29,8 +27,7 @@ describe("ContactStep", () => {
   it("surfaces validation errors on invalid submit and does not call onSubmit", async () => {
     const user = userEvent.setup();
     const { onSubmit } = renderStep();
-    const form = document.getElementById("contact") as HTMLFormElement;
-    form.requestSubmit();
+    await submitForm("contact");
     const matches = await screen.findAllByText(/please enter your full name/i);
     expect(matches.length).toBeGreaterThanOrEqual(1);
     expect(onSubmit).not.toHaveBeenCalled();
@@ -39,7 +36,7 @@ describe("ContactStep", () => {
     await user.type(screen.getByLabelText(/^email$/i), "not-an-email");
     await user.type(screen.getByLabelText(/phone/i), "5551234567");
     await user.type(screen.getByLabelText(/visit reason/i), "Botox");
-    form.requestSubmit();
+    await submitForm("contact");
     const emailErrors = await screen.findAllByText(/valid email address/i);
     expect(emailErrors.length).toBeGreaterThanOrEqual(1);
     expect(onSubmit).not.toHaveBeenCalled();
@@ -52,7 +49,7 @@ describe("ContactStep", () => {
     await user.type(screen.getByLabelText(/^email$/i), "jane@example.com");
     await user.type(screen.getByLabelText(/phone/i), "5551234567");
     await user.type(screen.getByLabelText(/visit reason/i), "Botox consultation");
-    (document.getElementById("contact") as HTMLFormElement).requestSubmit();
+    await submitForm("contact");
     await vi.waitFor(() => expect(onSubmit).toHaveBeenCalled());
     const payload = onSubmit.mock.calls[0][0];
     expect(payload).toMatchObject({

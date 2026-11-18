@@ -1,20 +1,25 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { safeScrollBehavior } from "./motion";
 
-const originalMatchMedia = window.matchMedia;
+const stubMatchMedia = (matches: boolean) => {
+  vi.stubGlobal(
+    "matchMedia",
+    vi.fn(() => ({ matches }) as MediaQueryList),
+  );
+};
 
 afterEach(() => {
-  window.matchMedia = originalMatchMedia;
+  vi.unstubAllGlobals();
 });
 
 describe("safeScrollBehavior", () => {
   it("returns 'smooth' when reduced motion is NOT preferred", () => {
-    window.matchMedia = vi.fn().mockReturnValue({ matches: false }) as never;
+    stubMatchMedia(false);
     expect(safeScrollBehavior()).toBe("smooth");
   });
 
   it("returns 'auto' when reduced motion IS preferred", () => {
-    window.matchMedia = vi.fn().mockReturnValue({ matches: true }) as never;
+    stubMatchMedia(true);
     expect(safeScrollBehavior()).toBe("auto");
   });
 });
