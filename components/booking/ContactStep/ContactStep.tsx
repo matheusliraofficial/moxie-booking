@@ -25,10 +25,15 @@ export const ContactStep = ({ formId, defaultValues, onSubmit }: ContactStepProp
 
   return (
     <div className="flex flex-col gap-6">
-      <h2 className="text-[18px] font-bold leading-[24px] tracking-[0.18px] text-title">
+      <h2 className="text-title text-[18px] leading-[24px] font-bold tracking-[0.18px]">
         {copy.heading}
       </h2>
-      <form id={formId} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4" noValidate>
+      <form
+        id={formId}
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-4"
+        noValidate
+      >
         <Input
           label={copy.fields.fullName}
           placeholder={copy.placeholder}
@@ -51,7 +56,8 @@ export const ContactStep = ({ formId, defaultValues, onSubmit }: ContactStepProp
           autoComplete="tel"
           error={errors.phone?.message}
           {...register("phone", {
-            onChange: (e) => setValue("phone", formatPhone(e.target.value), { shouldValidate: false }),
+            onChange: (e) =>
+              setValue("phone", formatPhone(e.target.value), { shouldValidate: false }),
           })}
         />
         <Textarea

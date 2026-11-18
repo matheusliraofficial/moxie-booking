@@ -1,16 +1,18 @@
 import type { ImgHTMLAttributes } from "react";
 
-type Props = ImgHTMLAttributes<HTMLImageElement> & {
+type Props = Omit<ImgHTMLAttributes<HTMLImageElement>, "fill"> & {
   fill?: boolean;
   priority?: boolean;
   sizes?: string;
-  src: string;
-  alt: string;
 };
 
-function NextImageStub({ fill: _fill, priority: _priority, sizes: _sizes, ...rest }: Props) {
+const NextImageStub = (props: Props) => {
+  const { fill, priority, sizes, alt = "", ...rest } = props;
+  void fill;
+  void priority;
+  void sizes;
   // eslint-disable-next-line @next/next/no-img-element
-  return <img {...rest} />;
-}
+  return <img alt={alt} {...rest} />;
+};
 
 export default NextImageStub;

@@ -12,11 +12,7 @@ export const contactSchema = z.object({
     .trim()
     .min(7, e.phoneInvalid)
     .refine((v) => v.replace(/\D/g, "").length >= 7, e.phoneInvalid),
-  visitReason: z
-    .string()
-    .trim()
-    .min(3, e.visitReasonTooShort)
-    .max(500, e.visitReasonTooLong),
+  visitReason: z.string().trim().min(3, e.visitReasonTooShort).max(500, e.visitReasonTooLong),
 });
 
 export type ContactValues = z.infer<typeof contactSchema>;

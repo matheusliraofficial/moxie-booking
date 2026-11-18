@@ -18,7 +18,11 @@ describe("Button", () => {
 
   it("disables correctly", async () => {
     const onClick = vi.fn();
-    render(<Button onClick={onClick} disabled>Blocked</Button>);
+    render(
+      <Button onClick={onClick} disabled>
+        Blocked
+      </Button>,
+    );
     await userEvent.click(screen.getByRole("button"));
     expect(onClick).not.toHaveBeenCalled();
   });

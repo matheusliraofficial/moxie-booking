@@ -29,9 +29,7 @@ describe("BookingFlow", () => {
     await user.click(screen.getByRole("button", { name: /book appointment/i }));
 
     // Step 3 — Confirmation + log payload
-    expect(
-      await screen.findByText(/your appointment has been booked/i),
-    ).toBeInTheDocument();
+    expect(await screen.findByText(/your appointment has been booked/i)).toBeInTheDocument();
     expect(log).toHaveBeenCalled();
     const payload = log.mock.calls.find(
       (c) => typeof c[0] === "string" && c[0].includes("Booking submitted"),

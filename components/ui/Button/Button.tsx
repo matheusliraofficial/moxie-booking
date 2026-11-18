@@ -10,9 +10,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ref={ref}
       className={clsx(
         "inline-flex cursor-pointer items-center justify-center gap-2 rounded-[16px] font-semibold tracking-[0.32px] transition",
-        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/40 focus-visible:ring-offset-2 focus-visible:ring-offset-page",
+        "focus-visible:ring-brand/40 focus-visible:ring-offset-page focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none",
         "disabled:cursor-not-allowed disabled:opacity-60",
-        size === "lg" ? "px-9 py-4 text-[16px] leading-[24px]" : "px-9 py-4 text-[16px] leading-[24px]",
+        size === "lg"
+          ? "px-9 py-4 text-[16px] leading-[24px]"
+          : "px-9 py-4 text-[16px] leading-[24px]",
         variant === "primary" && "bg-brand text-white hover:bg-[#7a1884] active:bg-[#6a1674]",
         variant === "ghost" && "text-label hover:text-ink",
         fullWidth && "w-full",

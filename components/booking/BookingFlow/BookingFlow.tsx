@@ -40,7 +40,7 @@ export const BookingFlow = () => {
 
   if (step === "confirmation") {
     return (
-      <div className="min-h-screen bg-page">
+      <div className="bg-page min-h-screen">
         <h1 className="sr-only">{t(strings.meta.pageHeading, { business: goldSpa.name })}</h1>
         <div className="mx-auto flex max-w-[1440px] justify-center px-6 py-10 md:px-[120px] md:py-[60px]">
           <ConfirmationStep business={goldSpa} />
@@ -50,7 +50,7 @@ export const BookingFlow = () => {
   }
 
   return (
-    <div className="min-h-screen bg-page pb-[112px]">
+    <div className="bg-page min-h-screen pb-[112px]">
       <h1 className="sr-only">{t(strings.meta.pageHeading, { business: goldSpa.name })}</h1>
       <div className="mx-auto flex max-w-[1440px] flex-col gap-6 px-4 py-10 md:flex-row md:items-start md:gap-6 md:px-[120px] md:py-[60px]">
         <div className="md:w-[450px] md:shrink-0">
@@ -58,7 +58,7 @@ export const BookingFlow = () => {
         </div>
         <section
           aria-live="polite"
-          className="flex-1 rounded-[12px] border border-border bg-card px-6 py-8 md:min-h-[525px] md:px-[60px] md:py-12"
+          className="border-border bg-card flex-1 rounded-[12px] border px-6 py-8 md:min-h-[525px] md:px-[60px] md:py-12"
         >
           {step === "contact" && (
             <ContactStep
@@ -79,7 +79,7 @@ export const BookingFlow = () => {
 
       {step === "contact" && (
         <div
-          className="fixed inset-x-0 bottom-0 z-10 bg-card"
+          className="bg-card fixed inset-x-0 bottom-0 z-10"
           style={{ boxShadow: "var(--shadow-bar)" }}
         >
           <div className="mx-auto flex max-w-[1440px] justify-end px-4 py-4 md:px-[120px]">
