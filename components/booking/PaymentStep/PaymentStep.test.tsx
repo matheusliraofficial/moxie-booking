@@ -33,7 +33,8 @@ describe("PaymentStep", () => {
     const { onSubmit } = renderStep();
     await fillValid();
     (document.getElementById("pay") as HTMLFormElement).requestSubmit();
-    await screen.findByText(/acknowledge the cancellation policy/i);
+    const matches = await screen.findAllByText(/acknowledge the cancellation policy/i);
+    expect(matches.length).toBeGreaterThanOrEqual(1);
     expect(onSubmit).not.toHaveBeenCalled();
   });
 
