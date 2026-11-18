@@ -42,7 +42,7 @@ export const paymentSchema = z.object({
     }, e.expiryExpired),
   cvc: z.string().regex(/^\d{3,4}$/, e.cvcFormat),
   zip: z.string().trim().min(3, e.zipRequired).max(10, e.zipRequired),
-  cancellationAck: z.literal(true, { message: e.cancellationAckRequired }),
+  cancellationAck: z.boolean().refine((v) => v === true, { message: e.cancellationAckRequired }),
 });
 
 /**
