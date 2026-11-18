@@ -15,17 +15,17 @@ import type { BookingStep } from "./BookingFlow.types";
 const CONTACT_FORM_ID = "contact-form";
 const PAYMENT_FORM_ID = "payment-form";
 
-export function BookingFlow() {
+export const BookingFlow = () => {
   const [step, setStep] = useState<BookingStep>("contact");
   const [booking, setBooking] = useState<BookingData>({ contact: null, payment: null });
 
-  function handleContact(values: ContactValues) {
+  const handleContact = (values: ContactValues) => {
     setBooking((b) => ({ ...b, contact: values }));
     setStep("payment");
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  };
 
-  function handlePayment(values: PaymentValues) {
+  const handlePayment = (values: PaymentValues) => {
     const finalBooking: BookingData = { contact: booking.contact, payment: values };
     setBooking(finalBooking);
     console.log("Booking submitted", {
@@ -36,7 +36,7 @@ export function BookingFlow() {
     });
     setStep("confirmation");
     window.scrollTo({ top: 0, behavior: "smooth" });
-  }
+  };
 
   if (step === "confirmation") {
     return (
@@ -91,4 +91,4 @@ export function BookingFlow() {
       )}
     </div>
   );
-}
+};

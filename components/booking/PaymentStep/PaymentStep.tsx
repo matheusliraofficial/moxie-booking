@@ -10,7 +10,7 @@ import { Checkbox } from "@/components/ui/Checkbox";
 import { Button } from "@/components/ui/Button";
 import type { PaymentStepProps } from "./PaymentStep.types";
 
-export function PaymentStep({ formId, defaultValues, onSubmit }: PaymentStepProps) {
+export const PaymentStep = ({ formId, defaultValues, onSubmit }: PaymentStepProps) => {
   const {
     register,
     handleSubmit,
@@ -122,4 +122,4 @@ export function PaymentStep({ formId, defaultValues, onSubmit }: PaymentStepProp
       </div>
     </form>
   );
-}
+};
