@@ -10,7 +10,9 @@
     "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
     "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.6",
@@ -26,15 +28,21 @@
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
     "@tailwindcss/turbopack": "4.3.3",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.12",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^4.7.0",
     "eslint": "^9",
     "eslint-config-next": "16.4.6",
+    "jsdom": "^25.0.1",
     "playwright": "^1.65.1",
     "tailwindcss": "4.3.3",
     "typescript": "^5",
     "vercel": "^65.16.0",
+    "vitest": "^2.1.9",
     "wrangler": "^4.163.0"
   },
   "packageManager": "pnpm@10.10.0"

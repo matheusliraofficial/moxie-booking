@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
-import type { Business } from "@/lib/mockBusiness";
 import { strings } from "@/lib/strings";
-import { BusinessCard } from "./BusinessCard";
+import { BusinessCard } from "@/components/booking/BusinessCard";
+import type { ConfirmationStepProps } from "./ConfirmationStep.types";
 
-export function ConfirmationStep({ business }: { business: Business }) {
+export function ConfirmationStep({ business }: ConfirmationStepProps) {
   const copy = strings.confirmation;
   return (
     <div className="flex w-full max-w-[542px] flex-col items-stretch gap-4">

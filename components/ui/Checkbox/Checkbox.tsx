@@ -1,14 +1,11 @@
 "use client";
 
-import { forwardRef, InputHTMLAttributes, ReactNode } from "react";
+import { forwardRef } from "react";
 import clsx from "clsx";
 import { Check } from "lucide-react";
+import type { CheckboxProps } from "./Checkbox.types";
 
-type Props = Omit<InputHTMLAttributes<HTMLInputElement>, "type"> & {
-  children?: ReactNode;
-};
-
-export const Checkbox = forwardRef<HTMLInputElement, Props>(function Checkbox(
+export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(function Checkbox(
   { children, className, id, checked, ...rest },
   ref,
 ) {

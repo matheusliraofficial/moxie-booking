@@ -4,20 +4,19 @@ import { useState } from "react";
 import { goldSpa } from "@/lib/mockBusiness";
 import type { BookingData, ContactValues, PaymentValues } from "@/lib/schemas";
 import { maskCardNumber } from "@/lib/format";
-import { BusinessCard } from "./BusinessCard";
-import { ContactStep } from "./ContactStep";
-import { PaymentStep } from "./PaymentStep";
-import { ConfirmationStep } from "./ConfirmationStep";
-import { Button } from "@/components/ui/Button";
 import { strings, t } from "@/lib/strings";
-
-type StepKey = "contact" | "payment" | "confirmation";
+import { BusinessCard } from "@/components/booking/BusinessCard";
+import { ContactStep } from "@/components/booking/ContactStep";
+import { PaymentStep } from "@/components/booking/PaymentStep";
+import { ConfirmationStep } from "@/components/booking/ConfirmationStep";
+import { Button } from "@/components/ui/Button";
+import type { BookingStep } from "./BookingFlow.types";
 
 const CONTACT_FORM_ID = "contact-form";
 const PAYMENT_FORM_ID = "payment-form";
 
 export function BookingFlow() {
-  const [step, setStep] = useState<StepKey>("contact");
+  const [step, setStep] = useState<BookingStep>("contact");
   const [booking, setBooking] = useState<BookingData>({ contact: null, payment: null });
 
   function handleContact(values: ContactValues) {
