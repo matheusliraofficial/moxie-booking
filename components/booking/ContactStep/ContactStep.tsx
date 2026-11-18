@@ -2,19 +2,14 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { contactSchema, ContactValues } from "@/lib/schemas";
+import { contactSchema, type ContactValues } from "@/lib/schemas";
 import { formatPhone } from "@/lib/format";
 import { strings } from "@/lib/strings";
 import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
+import type { ContactStepProps } from "./ContactStep.types";
 
-type Props = {
-  formId: string;
-  defaultValues: Partial<ContactValues>;
-  onSubmit: (values: ContactValues) => void;
-};
-
-export function ContactStep({ formId, defaultValues, onSubmit }: Props) {
+export function ContactStep({ formId, defaultValues, onSubmit }: ContactStepProps) {
   const {
     register,
     handleSubmit,

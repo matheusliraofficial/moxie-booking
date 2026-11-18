@@ -2,20 +2,15 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { paymentSchema, PaymentValues } from "@/lib/schemas";
+import { paymentSchema, type PaymentValues } from "@/lib/schemas";
 import { formatCardNumber, formatExpiry } from "@/lib/format";
 import { strings } from "@/lib/strings";
 import { Input } from "@/components/ui/Input";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Button } from "@/components/ui/Button";
+import type { PaymentStepProps } from "./PaymentStep.types";
 
-type Props = {
-  formId: string;
-  defaultValues: Partial<PaymentValues>;
-  onSubmit: (values: PaymentValues) => void;
-};
-
-export function PaymentStep({ formId, defaultValues, onSubmit }: Props) {
+export function PaymentStep({ formId, defaultValues, onSubmit }: PaymentStepProps) {
   const {
     register,
     handleSubmit,

@@ -1,20 +1,14 @@
 "use client";
 
-import { forwardRef, InputHTMLAttributes } from "react";
+import { forwardRef } from "react";
 import clsx from "clsx";
+import type { TextareaProps } from "./Textarea.types";
 
-type Props = Omit<InputHTMLAttributes<HTMLInputElement>, "size"> & {
-  label?: string;
-  error?: string;
-  size?: "md" | "sm";
-};
-
-export const Input = forwardRef<HTMLInputElement, Props>(function Input(
-  { label, error, size = "md", id, className, ...rest },
+export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(function Textarea(
+  { label, error, id, className, ...rest },
   ref,
 ) {
   const inputId = id ?? rest.name;
-
   return (
     <div className="flex w-full flex-col gap-[2px]">
       {label && (
@@ -25,15 +19,14 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
           {label}
         </label>
       )}
-      <input
+      <textarea
         id={inputId}
         ref={ref}
         aria-invalid={!!error || undefined}
         aria-describedby={error ? `${inputId}-error` : undefined}
         className={clsx(
-          "w-full rounded-[12px] border-[1.5px] bg-card px-3 text-[16px] leading-[24px] text-ink placeholder:text-muted",
+          "w-full min-h-[94px] resize-y rounded-[12px] border-[1.5px] bg-card px-3 py-3 text-[16px] leading-[24px] text-ink placeholder:text-muted",
           "outline-none transition focus:border-brand focus:ring-2 focus:ring-brand/20",
-          size === "md" ? "py-3" : "py-[11px]",
           error ? "border-danger" : "border-input-border",
           className,
         )}

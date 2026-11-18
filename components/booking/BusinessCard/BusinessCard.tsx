@@ -1,8 +1,8 @@
 import Image from "next/image";
-import { Business } from "@/lib/mockBusiness";
 import { strings, t } from "@/lib/strings";
+import type { BusinessCardProps } from "./BusinessCard.types";
 
-export function BusinessCard({ business }: { business: Business }) {
+export function BusinessCard({ business }: BusinessCardProps) {
   const { name, address, email, phone } = business;
   const copy = strings.businessCard;
   return (

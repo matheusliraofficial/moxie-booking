@@ -1,15 +1,10 @@
 "use client";
 
-import { ButtonHTMLAttributes, forwardRef } from "react";
+import { forwardRef } from "react";
 import clsx from "clsx";
+import type { ButtonProps } from "./Button.types";
 
-type Props = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: "primary" | "ghost";
-  size?: "md" | "lg";
-  fullWidth?: boolean;
-};
-
-export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
   { variant = "primary", size = "md", fullWidth, className, children, ...rest },
   ref,
 ) {
