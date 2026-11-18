@@ -12,7 +12,9 @@
     "upload": "opennextjs-cloudflare build && opennextjs-cloudflare upload",
     "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.6",
@@ -27,6 +29,8 @@
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
+    "@storybook/addon-docs": "^9.1.21",
+    "@storybook/nextjs-vite": "^9.1.21",
     "@tailwindcss/turbopack": "4.3.3",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.3",
@@ -39,6 +43,7 @@
     "eslint-config-next": "16.4.6",
     "jsdom": "^25.0.1",
     "playwright": "^1.65.1",
+    "storybook": "^9.1.21",
     "tailwindcss": "4.3.3",
     "typescript": "^5",
     "vercel": "^65.16.0",
