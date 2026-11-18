@@ -4,6 +4,7 @@ import { useState } from "react";
 import { goldSpa } from "@/lib/mockBusiness";
 import type { BookingData, ContactValues, PaymentValues } from "@/lib/schemas";
 import { maskCardNumber } from "@/lib/format";
+import { safeScrollBehavior } from "@/lib/motion";
 import { strings, t } from "@/lib/strings";
 import { BusinessCard } from "@/components/booking/BusinessCard";
 import { ContactStep } from "@/components/booking/ContactStep";
@@ -22,7 +23,7 @@ export const BookingFlow = () => {
   const handleContact = (values: ContactValues) => {
     setBooking((b) => ({ ...b, contact: values }));
     setStep("payment");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: safeScrollBehavior() });
   };
 
   const handlePayment = (values: PaymentValues) => {
@@ -35,7 +36,7 @@ export const BookingFlow = () => {
       submittedAt: new Date().toISOString(),
     });
     setStep("confirmation");
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: safeScrollBehavior() });
   };
 
   if (step === "confirmation") {

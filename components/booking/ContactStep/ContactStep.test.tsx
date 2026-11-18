@@ -31,7 +31,8 @@ describe("ContactStep", () => {
     const { onSubmit } = renderStep();
     const form = document.getElementById("contact") as HTMLFormElement;
     form.requestSubmit();
-    await screen.findByText(/please enter your full name/i);
+    const matches = await screen.findAllByText(/please enter your full name/i);
+    expect(matches.length).toBeGreaterThanOrEqual(1);
     expect(onSubmit).not.toHaveBeenCalled();
     // bad email path
     await user.type(screen.getByLabelText(/full name/i), "Jane Doe");
@@ -39,7 +40,8 @@ describe("ContactStep", () => {
     await user.type(screen.getByLabelText(/phone/i), "5551234567");
     await user.type(screen.getByLabelText(/visit reason/i), "Botox");
     form.requestSubmit();
-    expect(await screen.findByText(/valid email address/i)).toBeInTheDocument();
+    const emailErrors = await screen.findAllByText(/valid email address/i);
+    expect(emailErrors.length).toBeGreaterThanOrEqual(1);
     expect(onSubmit).not.toHaveBeenCalled();
   });
 

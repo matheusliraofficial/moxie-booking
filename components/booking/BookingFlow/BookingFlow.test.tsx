@@ -42,7 +42,8 @@ describe("BookingFlow", () => {
     const user = userEvent.setup();
     render(<BookingFlow />);
     await user.click(screen.getByRole("button", { name: /continue/i }));
-    expect(await screen.findByText(/please enter your full name/i)).toBeInTheDocument();
+    const errors = await screen.findAllByText(/please enter your full name/i);
+    expect(errors.length).toBeGreaterThanOrEqual(1);
     expect(screen.getByRole("heading", { name: /enter your details/i })).toBeInTheDocument();
   });
 });

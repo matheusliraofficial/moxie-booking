@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { paymentSchema, type PaymentValues } from "@/lib/schemas";
@@ -8,38 +9,68 @@ import { strings } from "@/lib/strings";
 import { Input } from "@/components/ui/Input";
 import { Checkbox } from "@/components/ui/Checkbox";
 import { Button } from "@/components/ui/Button";
+import { ErrorSummary } from "@/components/ui/ErrorSummary";
+import type { ErrorSummaryItem } from "@/components/ui/ErrorSummary";
 import type { PaymentStepProps } from "./PaymentStep.types";
 
+const FIELD_LABELS: Record<keyof PaymentValues, string> = {
+  cardNumber: "Card number",
+  expiry: "Expiry",
+  cvc: "CVV",
+  zip: "Billing ZIP",
+  cancellationAck: "Cancellation policy",
+};
+
 export const PaymentStep = ({ formId, defaultValues, onSubmit }: PaymentStepProps) => {
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const {
     register,
     handleSubmit,
     setValue,
     watch,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, submitCount },
   } = useForm<PaymentValues>({
     resolver: zodResolver(paymentSchema),
     defaultValues: { cancellationAck: undefined, ...defaultValues },
     mode: "onBlur",
   });
 
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, []);
+
   const ack = watch("cancellationAck");
   const copy = strings.payment;
   const f = copy.fields;
+
+  const errorItems: ErrorSummaryItem[] =
+    submitCount > 0
+      ? (Object.keys(errors) as (keyof PaymentValues)[]).map((key) => ({
+          fieldId: key,
+          message: `${FIELD_LABELS[key]}: ${errors[key]?.message ?? "Invalid"}`,
+        }))
+      : [];
 
   return (
     <form id={formId} onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-9" noValidate>
       <div className="flex flex-col gap-6">
         <div className="flex flex-col gap-2">
-          <h2 className="text-title text-[18px] leading-[24px] font-bold tracking-[0.18px]">
+          <h2
+            ref={headingRef}
+            tabIndex={-1}
+            className="text-title text-[18px] leading-[24px] font-bold tracking-[0.18px] outline-none"
+          >
             {copy.heading}
           </h2>
           <p className="text-label text-[14px] leading-[24px]">{copy.description}</p>
         </div>
 
+        <ErrorSummary errors={errorItems} />
+
         <div className="flex flex-col gap-2">
           <Input
             label={f.cardInformation}
+            id="cardNumber"
             inputMode="numeric"
             placeholder={f.cardNumberPlaceholder}
             autoComplete="cc-number"
@@ -51,6 +82,7 @@ export const PaymentStep = ({ formId, defaultValues, onSubmit }: PaymentStepProp
           />
           <div className="grid grid-cols-2 gap-2">
             <Input
+              id="expiry"
               size="sm"
               inputMode="numeric"
               placeholder={f.expiryPlaceholder}
@@ -63,6 +95,7 @@ export const PaymentStep = ({ formId, defaultValues, onSubmit }: PaymentStepProp
               })}
             />
             <Input
+              id="cvc"
               size="sm"
               inputMode="numeric"
               placeholder={f.cvcPlaceholder}
@@ -81,6 +114,7 @@ export const PaymentStep = ({ formId, defaultValues, onSubmit }: PaymentStepProp
         </div>
 
         <Input
+          id="zip"
           size="sm"
           inputMode="text"
           placeholder={f.zipPlaceholder}

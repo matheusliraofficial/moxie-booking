@@ -9,3 +9,6 @@ Object.defineProperty(window, "scrollTo", {
   value: vi.fn(),
   writable: true,
 });
+
+// jsdom does NOT implement Element.prototype.scrollIntoView.
+Element.prototype.scrollIntoView = vi.fn();
