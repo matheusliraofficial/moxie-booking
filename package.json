@@ -16,9 +16,13 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "e2e": "playwright test",
+<<<<<<< HEAD
     "e2e:ui": "playwright test --ui",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
+=======
+    "e2e:ui": "playwright test --ui"
+>>>>>>> origin/main
   },
   "dependencies": {
     "@hookform/resolvers": "^7.0.6",

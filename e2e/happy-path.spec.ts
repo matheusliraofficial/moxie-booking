@@ -5,9 +5,14 @@ test("walks Contact → Payment → Confirmation and logs a masked payload", asy
   const logs: unknown[] = [];
   page.on("console", (m) => m.type() === "log" && logs.push(m.args()));
 
+<<<<<<< HEAD
   const payload = page.waitForEvent(
     "console",
     (m) => m.type() === "log" && m.text().includes("Booking submitted"),
+=======
+  const payload = page.waitForEvent("console", (m) =>
+    m.type() === "log" && m.text().includes("Booking submitted"),
+>>>>>>> origin/main
   );
 
   await page.goto("/");
@@ -29,7 +34,11 @@ test("walks Contact → Payment → Confirmation and logs a masked payload", asy
   await expect(page.getByText(/confirmation has been sent/i)).toBeVisible();
 
   const msg = await payload;
+<<<<<<< HEAD
   const data = (await msg.args()[1].jsonValue()) as {
+=======
+  const data = await msg.args()[1].jsonValue() as {
+>>>>>>> origin/main
     payment: { cardNumber: string };
     contact: { email: string };
   };
