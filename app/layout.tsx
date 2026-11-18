@@ -15,10 +15,10 @@ export const metadata: Metadata = {
   description: strings.meta.description,
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
-  return (
-    <html lang="en" className={`${nunito.variable} h-full antialiased`}>
-      <body className="min-h-full">{children}</body>
-    </html>
-  );
-}
+const RootLayout = ({ children }: LayoutProps<"/">) => (
+  <html lang="en" className={`${nunito.variable} h-full antialiased`}>
+    <body className="min-h-full">{children}</body>
+  </html>
+);
+
+export default RootLayout;

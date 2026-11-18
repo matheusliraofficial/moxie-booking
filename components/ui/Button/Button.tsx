@@ -4,11 +4,8 @@ import { forwardRef } from "react";
 import clsx from "clsx";
 import type { ButtonProps } from "./Button.types";
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { variant = "primary", size = "md", fullWidth, className, children, ...rest },
-  ref,
-) {
-  return (
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ variant = "primary", size = "md", fullWidth, className, children, ...rest }, ref) => (
     <button
       ref={ref}
       className={clsx(
@@ -25,5 +22,6 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
     >
       {children}
     </button>
-  );
-});
+  ),
+);
+Button.displayName = "Button";

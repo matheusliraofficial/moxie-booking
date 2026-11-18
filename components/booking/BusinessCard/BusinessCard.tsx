@@ -2,7 +2,14 @@ import Image from "next/image";
 import { strings, t } from "@/lib/strings";
 import type { BusinessCardProps } from "./BusinessCard.types";
 
-export function BusinessCard({ business }: BusinessCardProps) {
+const Row = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <div className="flex items-start gap-4">
+    <dt className="w-[85px] shrink-0 text-muted">{label}</dt>
+    <dd className="flex-1 text-ink">{children}</dd>
+  </div>
+);
+
+export const BusinessCard = ({ business }: BusinessCardProps) => {
   const { name, address, email, phone } = business;
   const copy = strings.businessCard;
   return (
@@ -44,13 +51,4 @@ export function BusinessCard({ business }: BusinessCardProps) {
       </dl>
     </aside>
   );
-}
-
-function Row({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div className="flex items-start gap-4">
-      <dt className="w-[85px] shrink-0 text-muted">{label}</dt>
-      <dd className="flex-1 text-ink">{children}</dd>
-    </div>
-  );
-}
+};

@@ -5,7 +5,7 @@ import { strings } from "@/lib/strings";
 import { BusinessCard } from "@/components/booking/BusinessCard";
 import type { ConfirmationStepProps } from "./ConfirmationStep.types";
 
-export function ConfirmationStep({ business }: ConfirmationStepProps) {
+export const ConfirmationStep = ({ business }: ConfirmationStepProps) => {
   const copy = strings.confirmation;
   return (
     <div className="flex w-full max-w-[542px] flex-col items-stretch gap-4">
@@ -27,4 +27,4 @@ export function ConfirmationStep({ business }: ConfirmationStepProps) {
       <BusinessCard business={business} />
     </div>
   );
-}
+};

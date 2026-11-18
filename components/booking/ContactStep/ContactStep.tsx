@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/Input";
 import { Textarea } from "@/components/ui/Textarea";
 import type { ContactStepProps } from "./ContactStep.types";
 
-export function ContactStep({ formId, defaultValues, onSubmit }: ContactStepProps) {
+export const ContactStep = ({ formId, defaultValues, onSubmit }: ContactStepProps) => {
   const {
     register,
     handleSubmit,
@@ -64,4 +64,4 @@ export function ContactStep({ formId, defaultValues, onSubmit }: ContactStepProp
       </form>
     </div>
   );
-}
+};
